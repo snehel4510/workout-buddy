@@ -28,6 +28,19 @@ const getWorkout = async (req, res) => {
 // post a new workout
 const postWorkout = async (req, res) => {
     const { title, reps, load } = req.body
+    let emptyFields = []
+    if(!title) {
+        emptyFields.push('title')
+    }
+    if(!reps) {
+        emptyFields.push('reps')
+    }
+    if(!load) {
+        emptyFields.push('load')
+    }
+    if(emptyFields.length > 0) {
+        return res.status(400).send({ error: `Please fill in all the fields`, emptyFields })
+    }
     try {
         const workout = await Workout.create({ title, reps, load })
         res.status(200).send(workout)
@@ -46,6 +59,7 @@ const deleteWorkout = async (req, res) => {
     if(!workout) {
         res.status(404).send({ message: 'Workout not found' })
     }
+    // res.status(200).json({message: "Workout Deleted",workout})
     res.status(200).json(workout)
 }
 
@@ -59,7 +73,8 @@ const updateWorkout = async (req, res) => {
     if(!workout) {
         res.status(404).send({ message: 'Workout not found' })
     }
-    res.status(200).send({ message: 'Workout updated', workout })
+    // res.status(200).send({ message: 'Workout updated', workout })
+    res.status(200).json(workout)
 }
 
 module.exports = {
