@@ -46,7 +46,7 @@ const deleteWorkout = async (req, res) => {
     if(!workout) {
         res.status(404).send({ message: 'Workout not found' })
     }
-    res.status(200).send({ message: 'Workout deleted', workout })
+    res.status(200).json(workout)
 }
 
 // update a workout
