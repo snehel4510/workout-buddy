@@ -32,7 +32,7 @@ const postWorkout = async (req, res) => {
         const workout = await Workout.create({ title, reps, load })
         res.status(200).send(workout)
     } catch (err) {
-        res.status(400).send(err.message)
+        res.status(400).send({error: err.message})
     }
 }
 
