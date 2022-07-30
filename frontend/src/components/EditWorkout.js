@@ -3,6 +3,8 @@ import Modal from 'react-modal'
 import { useWorkoutsContext } from '../hooks/useWorkoutsContext';
 import { GiCancel } from "react-icons/gi";
 
+Modal.setAppElement('#root')
+
 const EditWorkout = ({ workout, Open, onClose }) => {
 
     const { dispatch } = useWorkoutsContext();
@@ -38,9 +40,23 @@ const EditWorkout = ({ workout, Open, onClose }) => {
 
     return ( 
         <div className="modal">
-                <Modal isOpen={Open}>
+                <Modal isOpen={Open} onRequestClose={onClose} style={{
+                    overlay: {
+                        backgroundColor: 'rgba(0,0,0,0.5)'
+                    },
+                    content: {
+                        backgroundColor: '#fefefe',
+                        borderRadius: '10px',
+                        border: '1px solid #888',
+                        padding: '30px',
+                        top: '80px',
+                        left: '400px',
+                        right: '400px',
+                        bottom: '100px',
+                    }
+                }}>
                     <form className="create" onSubmit={handleEdit}>
-                        <h3>Edit workout</h3>
+                        <h2>Edit workout</h2>
                         <label>Exercize title : </label>
                         <input type="text"
                         value={title} onChange={(e) => setTitle(e.target.value)}/>
@@ -53,7 +69,7 @@ const EditWorkout = ({ workout, Open, onClose }) => {
                         <button>Edit workout</button>
                         {error && <div className="error">{error}</div> }
                     </form>
-                    <span onClick={onClose}><GiCancel /></span>
+                    <span className='close' onClick={onClose}><GiCancel size='30px' /></span>
                 </Modal>
             </div>
      );

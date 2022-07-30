@@ -107,3 +107,11 @@ margin: 20px 0;
 input.error {
 border: 1px solid var(--error);
 }
+.close {
+position: absolute;
+top: 20px;
+bottom: 100px;
+right: 20px;
+padding: 6px;
+cursor: pointer;
+}
