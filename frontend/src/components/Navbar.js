@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 import { GiBiceps } from "react-icons/gi";
-import { useLogut } from "../hooks/useLogout";
+import { useLogout } from "../hooks/useLogout";
 import { useAuthContext } from "../hooks/useAuthContext";
 
 const Navbar = () => {
 
-    const { logout } = useLogut()
+    const { logout } = useLogout()
     const { user } = useAuthContext()
 
     const handleClick = () => {
