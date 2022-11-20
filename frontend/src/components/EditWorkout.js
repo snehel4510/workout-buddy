@@ -1,13 +1,16 @@
-import { useState } from 'react';
 import Modal from 'react-modal'
-import { useWorkoutsContext } from '../hooks/useWorkoutsContext';
+import { useState } from 'react';
 import { GiCancel } from "react-icons/gi";
+
+import { useWorkoutsContext } from '../hooks/useWorkoutsContext';
+import { useAuthContext } from '../hooks/useAuthContext';
 
 Modal.setAppElement('#root')
 
 const EditWorkout = ({ workout, Open, onClose }) => {
 
     const { dispatch } = useWorkoutsContext();
+    const {user} = useAuthContext();
 
     const [title , setTitle] = useState(workout.title);
     const [load , setLoad] = useState(workout.load);
@@ -15,12 +18,19 @@ const EditWorkout = ({ workout, Open, onClose }) => {
     const [error , setError] = useState(null);
 
     const handleEdit = async (e) => {
+
         e.preventDefault();
+        if(!user) {
+            setError("You must be logged in to edit a workout");
+            return;
+        }
+
         const Eworkout = {title, load, reps};
         const response = await fetch(`/api/workouts/${workout._id}`, {
             method: 'PATCH',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${user.token}`
             },
             body: JSON.stringify(Eworkout)
         });
