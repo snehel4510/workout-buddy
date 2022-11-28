@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
-import { GiBiceps } from "react-icons/gi";
 import { useLogout } from "../hooks/useLogout";
 import { useAuthContext } from "../hooks/useAuthContext";
+import { GiBiceps } from "react-icons/gi";
 
 const Navbar = () => {
 
