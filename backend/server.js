@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const path = require("path")
 
 const workoutRoutes = require('./routes/workouts_route');
 const userRoutes = require('./routes/user_routes');
@@ -20,6 +21,13 @@ app.use((req,res,next) => {
 app.use('/api/workouts',workoutRoutes)
 app.use('/api/user',userRoutes)
 
+app.use(express.static(path.join(__dirname,"../frontend/build")));
+
+app.get("*" , (req,res)=>{
+    res.sendFile(path.resolve(__dirname,"../frontend/build/index.html"))
+})
+
+// mongodb://localhost:27017
 const port = process.env.PORT;
 const uri = process.env.MONGO_URI;
 mongoose.connect(uri)
